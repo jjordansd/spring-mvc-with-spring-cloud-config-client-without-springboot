@@ -14,7 +14,39 @@ The reason why I decided to invest some time to make this reference example a re
 > NOTE: 
 > * This example uses the original SpringCloud Config client without any changes.
 > * It does require you to add a couple of changes to your application, as described at https://github.com/spring-cloud/spring-cloud-config/issues/299
-> * The solution to make this possible is described at https://github.com/spring-cloud/spring-cloud-config/issues/299#issuecomment-293990546
+
+
+# How to use Spring Cloud Config Client in Non-SpringBoot Web Applications?
+
+> NOTE: 
+> * The solution to make this possible is described at https://github.com/spring-cloud/spring-cloud-config/issues/299#issuecomment-293990546. 
+> * The steps below are from the PR https://github.com/marcellodesales/spring-mvc-helloworld-spring-cloud-config-client/pull/1 to show the integration into an existing application.
+
+* Using a compatible Spring Framework to the Spring Cloud Config Client you want to use requires verifying their compatibility.
+* This solution involves changing the file `web.xml` and creating at least 3 classes to be added to your application.
+
+1. Add the dependency to the library to your application using the `pom.xml` as shown at https://github.com/marcellodesales/spring-mvc-helloworld-spring-cloud-config-client/pull/1/commits/1bf65f128f58f59111449dc13aa6b5e5f0eccb54
+ * Optionally, add the dependency to `Run Jetty Run` to run the application in Eclipse, just like SpringBoot apps. https://github.com/marcellodesales/spring-mvc-helloworld-spring-cloud-config-client/pull/1/commits/bb395ae9b0b990a83a085db4398d247dd8419547
+ 
+2. Create an ApplicationContext that uses the Spring Cloud Config Client as a resource and update the `web.xml` with it.
+ * https://github.com/marcellodesales/spring-mvc-helloworld-spring-cloud-config-client/pull/1/commits/3b5f5e8604c7335e4c2f5eda98a4d2563b281abf
+
+3. Create your POJO classes that represents a couple or multiple properties using `@Value` or `@ConfigurationProperties` annotations. 
+ * Use the @ConfigurationProperties to better plan your properties and organize them following a common business logic. I usually create `*Properties` classes where `Properties` help me identify that it's a POJO for configuration. 
+ * Only use @Value when you need a reference of a property alone.
+ * Very useful when taking advantage of the `@RefreshScope` capabilities of Spring Cloud Config http://cloud.spring.io/spring-cloud-static/docs/1.0.x/spring-cloud.html#_refresh_scope
+ 
+4. Create the `@EnableConfigurationProperties` class instantiates the bean that's responsible for resolving classes with `@Value` and `@ConfigurationProperties`. 
+ * Note that this class MUST list all the Beans with @ConfigurationProperties
+ * https://github.com/marcellodesales/spring-mvc-helloworld-spring-cloud-config-client/pull/1/commits/7d64e413b2ceb019e5ef38485f5acd45a5cdc699
+
+5. Autowire the new Properties Beans into an existing `@Controller` or `@Service`. 
+ * https://github.com/marcellodesales/spring-mvc-helloworld-spring-cloud-config-client/pull/1/commits/c15f54504dff4f629f8201f8514c78e885fd3d2b
+
+6. Add the Log level for the Spring Cloud Config Client to at least `INFO` and see what it is up to! 
+ * https://github.com/marcellodesales/spring-mvc-helloworld-spring-cloud-config-client/pull/1/commits/454d8350d42377b2ed8f1efdfa2daf6e37e7496f
+ 
+7. Enjoy! 
 
 # Setup and Tools
 
