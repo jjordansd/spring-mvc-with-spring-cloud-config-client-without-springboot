@@ -2,6 +2,8 @@
 
 We all know how difficult is to change the configuration of our apps and services in the middle of Production panic attacks :) Configuration management has become much simpler with Spring Cloud Config ecosystem, which allows dynamic configuration management for any service and clients, from backend to frontend. However, being mostly a Java shop, it has been really hard to onbonard customers due to the fact that they are required to migrate to SpringBoot. Therefore, it was really important to us to find a way around and easy customers adoption.
 
+This is based on the discussions of https://github.com/spring-cloud/spring-cloud-config/issues/299.
+
 # Why this Sample
 
 The reason why I decided to invest some time to make this reference example a reality was, by no means, to go against the SpringBoot's adoption. As a big fan, I'd like to help those who doesn't want to do a full sprint from the beginning, but would like it to be a "crawl-walk-run" one. That is:
