@@ -31,6 +31,12 @@ Here's what I use to get very close to SpringBoot's amazing set of commands.
 
 * If you prefer to mimic SpringBoot in the command-line level, you can use http://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html.
 
+Before you run, make sure you execute the following:
+
+```java
+$ mvn eclipse:eclipse
+```
+
 ## Docker
 
 * The repo originally comes with a Dockerfile. You can quickly build the application and run it inside a container.
@@ -41,11 +47,18 @@ $ docker build -t reference .
 $ docker run -ti -p 8080:8080 reference
 ```
 
+However, it is easier to just run it using Jetty.
+
 # Running this app
 
 > This method requires `Spring Framework 4.2.5.RELEASE` at minimum.
 > You must provide the environment variables to your application instead of setting the values.
- 
+
+You will run the following:
+
+* The Spring Cloud Config Server loading files from your local directory for the quick check.
+* Run the application to load the properties from it.
+
 ## Running the Config Server
 
 You can use the Docker image https://hub.docker.com/r/hyness/spring-cloud-config-server/ to quickly run the config server loading property files from the local directory. I'm providing the `docker-compose` with it, loading from the local directory indicated (my personal machine) or yours provided with the environment variable `SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS`.
