@@ -1,0 +1,16 @@
+version: '2.1'
+
+services:
+  configServer:
+    image: hyness/spring-cloud-config-server
+    container_name: config-server
+    environment:
+      SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS: file:/Users/jjordan/jProjects/spring-cloud-config/cloud-config/config-repository/config
+      SPRING_PROFILES_ACTIVE: native 
+    volumes:
+      - ${SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS:-/Users/jjordan/jProjects/spring-cloud-config/cloud-config/config-repository/config}:/local-development
+    ports:
+      - 8888:8888
+
+volumes:
+  "config-server":

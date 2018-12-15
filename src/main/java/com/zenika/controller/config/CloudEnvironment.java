@@ -27,7 +27,7 @@ public class CloudEnvironment extends StandardServletEnvironment {
 
     ConfigClientProperties configClientProperties = new ConfigClientProperties(environment);
     configClientProperties.setUri("http://localhost:8888");
-    configClientProperties.setName("publisher");
+    configClientProperties.setName("customer-manager");
     configClientProperties.setLabel("master");
 
     System.out.println("##################### will load the client configuration");
